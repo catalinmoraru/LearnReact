@@ -36,8 +36,19 @@ const list = [
 //   }
 // }
 
+class Developer {
+	constructor(firstname, lastname) {
+	this.firstname = firstname;
+	this.lastname = lastname; }
+	getName() {
+		return this.firstname + ' ' + this.lastname;
+	}
+}
+
 class App extends Component {
 	render() {
+		const robin = new Developer('Robin', 'Wieruch');
+		console.log(robin.getName());
 	    let firstName = "a s Gigel ce mai mare";
 	    let lastName = "Haiduc";
 		const helloWorld = 'Welcome to the Road to learn React';
