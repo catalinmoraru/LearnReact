@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 
+// https://github.com/the-road-to-learn-react/hackernews-client/blob/master/src/App.js
+
 
 
 const DEFAULT_QUERY = 'redux';
@@ -10,23 +12,31 @@ const PARAM_SEARCH = 'query=';
 
 const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 
-const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
-const Search = ({ value, onChange, children }) =>
-	<form>
-		{children} <input
-		type="text"
-		value={value}
-		onChange={onChange}
-	/> </form>
+const Search = ({
+					value,
+					onChange,
+					onSubmit,
+					children
+				}) =>
+	<form onSubmit={onSubmit}>
+		<input
+			type="text"
+			value={value}
+			onChange={onChange}
+		/>
+		<button type="submit">
+			{children}
+		</button>
+	</form>;
 
 class Table extends Component {
 	render() {
 		console.log(url);
-		const {list, pattern, onDismiss} = this.props;
+		const {list, onDismiss} = this.props;
 		return (
 			<div>
-				{list.filter(isSearched(pattern)).map(item =>
+				{list.map(item =>
 					<div key={item.objectID}>
             <span>
               <a href={item.url}>{item.title}</a>
@@ -55,6 +65,7 @@ class Button extends Component {
 			className={className}
 			type="button"
 		>
+			{children}
 		</button>);
 	}
 }
@@ -72,6 +83,8 @@ class App extends Component {
 		this.setSearchTopStories = this.setSearchTopStories.bind(this);
 		this.onDismiss = this.onDismiss.bind(this);
 		this.onSearchChange = this.onSearchChange.bind(this);
+		this.onSearchSubmit = this.onSearchSubmit.bind(this);
+		this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
 	}
 
 	setSearchTopStories(result) {
@@ -79,39 +92,73 @@ class App extends Component {
 	}
 
 	onDismiss(id) {
-		const updatedList = this.state.list.filter(item => item.objectID !== id);
-		this.setState({list: updatedList});
+		const isNotId = item => item.objectID !== id;
+		const updatedHits = this.state.result.hits.filter(isNotId);
+		this.setState({
+			result: { ...this.state.result, hits: updatedHits }
+		});
 	}
 
 	onSearchChange(event) {
 		this.setState({searchTerm: event.target.value});
 	}
 
+	onSearchSubmit() {
+		const { searchTerm } = this.state;
+		this.fetchSearchTopStories(searchTerm);
+	}
+
+	fetchSearchTopStories(searchTerm) {
+		fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+			.then(response => response.json())
+			.then(result => this.setSearchTopStories(result))
+			.catch(error => error);
+	}
+
 
 	render() {
 
 		const { searchTerm, result } = this.state;
-		if (!result) { return null; }
+		// if (!result) { return null; }
+		// return (
+		// 	<div className="page">
+		// 		... <Table
+		// 		list={result.hits}
+		// 		pattern={searchTerm}
+		// 		onDismiss={this.onDismiss}
+		// 	/>
+		// 	</div>
+		// );
+
 		return (
 			<div className="page">
-				... <Table
-				list={result.hits}
-				pattern={searchTerm}
-				onDismiss={this.onDismiss}
-			/>
-			</div>
-		);
+				<div className="interactions">
+					<Search
+						value={searchTerm}
+						onChange={this.onSearchChange}
+					>
+						Search
+					</Search>
+				</div>
+				{ result &&
+				<Table
+					list={result.hits}
+					onDismiss={this.onDismiss}
+				/> }
+			</div> );
 
 	}
 
 
 	componentDidMount() {
 		const { searchTerm } = this.state;
-		fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
-			.then(response => response.json())
-			.then(result => this.setSearchTopStories(result))
-			.catch(error => error);
+		this.fetchSearchTopStories(searchTerm);
 	}
 }
 
 export default App;
+
+export {
+	Button,
+	Search,
+	Table, };
