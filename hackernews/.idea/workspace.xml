@@ -23,8 +23,8 @@
       <file leaf-file-name="ReactJS-GettingStarted.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ReactJS-GettingStarted.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="807">
-              <caret line="368" column="23" lean-forward="true" selection-start-line="368" selection-start-column="23" selection-end-line="368" selection-end-column="23" />
+            <state relative-caret-position="299">
+              <caret line="334" column="4" lean-forward="true" selection-start-line="334" selection-start-column="4" selection-end-line="334" selection-end-column="4" />
               <folding>
                 <element signature="e#72#111#0" expanded="true" />
                 <element signature="e#7743#7841#0" />
@@ -199,12 +199,12 @@
       <workItem from="1524568641681" duration="4512000" />
       <workItem from="1524576554177" duration="12110000" />
       <workItem from="1524741745926" duration="7519000" />
-      <workItem from="1525952665371" duration="20490000" />
+      <workItem from="1525952665371" duration="23248000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47939000" />
+    <option name="totallyTimeSpent" value="50697000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1177" extended-state="6" />
@@ -281,7 +281,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/ReactJS-GettingStarted.js</url>
-          <line>254</line>
+          <line>272</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -497,8 +497,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ReactJS-GettingStarted.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="807">
-          <caret line="368" column="23" lean-forward="true" selection-start-line="368" selection-start-column="23" selection-end-line="368" selection-end-column="23" />
+        <state relative-caret-position="299">
+          <caret line="334" column="4" lean-forward="true" selection-start-line="334" selection-start-column="4" selection-end-line="334" selection-end-column="4" />
           <folding>
             <element signature="e#72#111#0" expanded="true" />
             <element signature="e#7743#7841#0" />
